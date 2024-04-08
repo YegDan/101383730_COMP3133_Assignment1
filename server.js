@@ -1,6 +1,10 @@
 const {ApolloServer} = require('apollo-server');
+const express = require('express');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
+const cors = require('cors');
+const app = express();
+app.use(cors());
 const server = new ApolloServer({typeDefs, 
   resolvers,
   formatError: (err) => {
@@ -12,7 +16,10 @@ const server = new ApolloServer({typeDefs,
       code: err.extensions.code, // Or any other error properties you might want to expose
     };
   },});
+
 const mongoose = require('mongoose');
+
+server.applyMiddleware({ app });
 mongoose.connect('mongodb+srv://rootadmin:rootadmin@cluster0.fpg8zxl.mongodb.net/', {useNewUrlParser: true})
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));

@@ -13,6 +13,7 @@
   "dependencies": {
     "apollo-server": "^3.13.0",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "graphql": "^16.8.1",
     "mongoose": "^8.1.3"
   },
