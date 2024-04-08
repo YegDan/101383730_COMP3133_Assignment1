@@ -4,7 +4,13 @@ const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 const cors = require('cors');
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+  origin: 'https://101383730-comp3133-assig2-gxcr.vercel.app',
+  credentials: true, // Allow credentials like cookies to be sent
+};
+
+app.use(cors(corsOptions));
 const server = new ApolloServer({typeDefs, 
   resolvers,
   formatError: (err) => {
