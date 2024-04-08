@@ -9,9 +9,19 @@ const resolvers = {
                 
             return user;
         },
-        addEmployee: async(parent, args) => {
-            const employee = await new Employee(args).save();
-            return employee;
+        addEmployee: async (parent, args) => {
+            console.log('Received `addEmployee` mutation with args:', args);
+            
+            try {
+                const employee = await new Employee(args).save();
+                console.log('Employee added successfully:', employee);
+                return employee;
+            } catch (error) {
+                console.error('Error adding employee:', error);
+                // If the error is due to user input (like duplicate email), you can throw a UserInputError.
+                // Otherwise, for unexpected errors, you can throw a generic ApolloError or a specific error based on your error handling strategy.
+                throw new ApolloError('Failed to add employee.', 'ADD_EMPLOYEE_ERROR');
+            }
         },
 
         deleteEmployee: async(parent, args) => {
